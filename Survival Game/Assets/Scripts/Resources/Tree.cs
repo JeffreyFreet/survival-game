@@ -7,12 +7,6 @@ public class Tree : Resource {
     [SerializeField]
     private GameObject stump, tree, resourceDrop;
 
-    private bool isHarvested;
-    private float respawn = 5f;
-    private float timer = 5f;
-
-
-
 	// Use this for initialization
 	void Start () {
         stump.SetActive(false);
@@ -48,7 +42,7 @@ public class Tree : Resource {
             stump.SetActive(true);
             tree.SetActive(false);
 
-            Instantiate(resourceDrop, new Vector3(this.transform.position.x + Random.Range(-2, 2), 0, this.transform.position.z + Random.Range(-2, 2)), Quaternion.identity);
+            Instantiate(resourceDrop, new Vector3(this.transform.position.x + Random.Range(-2, 2) + 2, 0, this.transform.position.z + Random.Range(-2, 2) + 2), Quaternion.identity);
             isHarvested = true;
             
         }
