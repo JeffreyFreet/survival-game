@@ -42,6 +42,14 @@ public class PlayerController : MonoBehaviour {
                     hit.collider.gameObject.GetComponent<Resource>().Interact();
                 }
             }
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.gameObject.tag == "Creature")
+                {
+                    hit.collider.gameObject.GetComponent<Creature>().Interact();
+                }
+            }
         }
 	}
 
@@ -49,7 +57,7 @@ public class PlayerController : MonoBehaviour {
     {
         playerHunger -= Time.deltaTime * .16f;   //.16 makes 100 -> 0 in 10 mins
         hungerBar.fillAmount = playerHunger / PlayerMaxHunger;
-        print(playerHunger);
+        //print(playerHunger);
 
     }
 
@@ -57,6 +65,6 @@ public class PlayerController : MonoBehaviour {
     {
         playerThirst -= Time.deltaTime * .16f;   //.16 makes 100 -> 0 in 10 mins
         thirstBar.fillAmount = playerThirst / playerMaxThirst;
-        print(playerThirst);
+        //print(playerThirst);
     }
 }
