@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Cow : Creature {
+public class GenericAnimal : Creature {
 
     public GameObject lootDrop;
 
@@ -19,7 +19,9 @@ public class Cow : Creature {
     void Update()
     {
         healthBar.transform.LookAt(player.transform);
+        healthBG.transform.LookAt(player.transform);
         healthBar.fillAmount = (float) health / (float) maxHealth;
+        healthBG.fillAmount = 1 - healthBar.fillAmount;
 
         if (health <= 0)
         {

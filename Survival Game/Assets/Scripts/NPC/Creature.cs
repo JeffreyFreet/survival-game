@@ -11,6 +11,7 @@ public abstract class Creature : MonoBehaviour {
     [SerializeField]
     protected GameObject player;
     public Image healthBar;
+    public Image healthBG;
 
     public abstract void Interact();
     public abstract void Attack(); //Only neccesary on hostiles
