@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     private float playerHealth, playerMaxHealth;
     private float playerHunger, PlayerMaxHunger;
     private float playerThirst, playerMaxThirst;
+    private float knockback = 750;
 
     public Image healthBar;
     public Image hungerBar;
@@ -47,11 +48,21 @@ public class PlayerController : MonoBehaviour {
             {
                 if (hit.transform.gameObject.tag == "Creature")
                 {
-                    hit.collider.gameObject.GetComponent<Creature>().Interact();
+                    hit.collider.gameObject.GetComponent<Creature>().Interact(transform, knockback);
                 }
             }
         }
 	}
+
+    public void Damage(float damageValue, float knockback, Transform enemyPosition)
+    {
+        playerHealth -= damageValue;
+        UpdateHealth();
+
+        Vector3 direction = (transform.position - enemyPosition.position).normalized;
+
+        GetComponent<Rigidbody>().AddForce(direction * knockback);
+    }
 
     private void UpdateHunger()
     {
@@ -66,5 +77,10 @@ public class PlayerController : MonoBehaviour {
         playerThirst -= Time.deltaTime * .16f;   //.16 makes 100 -> 0 in 10 mins
         thirstBar.fillAmount = playerThirst / playerMaxThirst;
         //print(playerThirst);
+    }
+
+    private void UpdateHealth()
+    {
+        healthBar.fillAmount = playerHealth / playerMaxHealth;
     }
 }

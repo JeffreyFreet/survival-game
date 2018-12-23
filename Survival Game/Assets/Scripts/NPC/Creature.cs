@@ -13,21 +13,24 @@ public abstract class Creature : MonoBehaviour {
     public Image healthBG;
     public GameObject drop;
 
-    public abstract void Interact();
+    public abstract void Interact(Transform player, float knockback);
     protected abstract void Attack(); //Only neccesary on hostiles
     protected abstract void Death();
     protected abstract void Drop();
 
+    protected float speed = 1;
     protected Vector3 wayPoint;
-    protected float Speed = 3;   
-    protected int Range = 10;
+    protected int range = 7;
 
     protected void Wander()
     {
-        wayPoint = new Vector3(Random.Range(transform.position.x - Range, transform.position.x + Range), 
-                               0, 
-                               Random.Range(transform.position.z - Range, transform.position.z + Range));
-        transform.LookAt(wayPoint);
+        wayPoint = new Vector3(Random.Range(transform.position.x - range, transform.position.x + range), 1, Random.Range(transform.position.z - range, transform.position.z + range));
+        wayPoint.y = 0;
+    }
+
+    protected void SmoothLook(Vector3 newDirection)
+    {
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(newDirection), Time.deltaTime);
     }
 
     protected void UpdateUI()
