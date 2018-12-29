@@ -15,8 +15,6 @@ public abstract class Creature : MonoBehaviour {
 
     public abstract void Interact(Transform player, float knockback);
     protected abstract void Attack(); //Only neccesary on hostiles
-    protected abstract void Death();
-    protected abstract void Drop();
 
     protected float speed = 1;
     protected Vector3 wayPoint;
@@ -41,5 +39,15 @@ public abstract class Creature : MonoBehaviour {
         healthBG.fillAmount = 1 - healthBar.fillAmount;
     }
 
+    protected void Death()
+    {
+        Drop();
+        Destroy(this.gameObject);
+    }
+
+    protected void Drop()
+    {
+        Instantiate(drop, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+    }
 
 }

@@ -79,20 +79,9 @@ public class Bear : Creature {
         }
     }
 
-    protected override void Death()
-    {
-        Drop();
-        Destroy(this);
-    }
-
-    protected override void Drop()
-    {
-        Instantiate(drop, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-    }
-
     public override void Interact(Transform player, float knockback)
     {
-        health -= 10;
+        health -= 100;
 
         Vector3 direction = (transform.position - player.position).normalized;
 
